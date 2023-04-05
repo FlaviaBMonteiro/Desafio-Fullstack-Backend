@@ -14,16 +14,19 @@ class User {
     id: number
 
     @Column({ length: 45 })
-    name: string
+    firstName: string
+
+    @Column({ length: 45 })
+    lastName: string
 
     @Column({ length: 45, unique: true })
     email: string
 
+    @Column({ length: 11})
+    phone: string
+
     @Column({ length: 120 })
     password: string
-
-    @Column({ type: 'date', nullable: true })
-    birthDate: string
 
     @CreateDateColumn()
     createdAt: string
