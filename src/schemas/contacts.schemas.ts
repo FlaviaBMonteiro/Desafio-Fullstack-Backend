@@ -5,7 +5,7 @@ import { returnUserSchema } from './users.schemas'
 const contactSchema = z.object({    
     firstName: z.string().min(3).max(45),
     lastName: z.string().min(3).max(45),
-    email: z.string().email().min(10).max(45),
+    email: z.string().email().min(10).max(45).toLowerCase(),
     phone: z.string().min(10).max(11).trim(),
     user: returnUserSchema.nullish(),
     })
