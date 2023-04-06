@@ -9,13 +9,7 @@ const listUsersService = async (): Promise<IUsersReturn> => {
 
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
 
-    const findUsers: Array<User> = await userRepository.find({
-        // take: 3, Como se fosse LIMIT
-        // skip: 0, Como se fosse OFFSET
-        order: {
-            id: 'ASC'
-        }
-    })
+    const findUsers: Array<User> = await userRepository.find()
 
     const users = returnMultipleUserSchema.parse(findUsers)
 

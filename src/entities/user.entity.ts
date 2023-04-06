@@ -4,8 +4,10 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
-    DeleteDateColumn
+    DeleteDateColumn,
+    OneToMany
 } from 'typeorm'
+
 
 @Entity('users')
 class User {

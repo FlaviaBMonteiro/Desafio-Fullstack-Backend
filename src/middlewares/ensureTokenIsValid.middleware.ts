@@ -20,6 +20,7 @@ const ensureTokenIsValidMiddleware = (req: Request, res: Response, next: NextFun
 
         req.user = {
             id: Number(decoded.sub)
+
         }
 
         return next()

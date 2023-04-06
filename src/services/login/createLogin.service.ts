@@ -1,5 +1,5 @@
-import { compare } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { compare } from 'bcryptjs'
 import { AppDataSource } from '../../data-source'
 import { User } from '../../entities'
 import { AppError } from '../../errors'
@@ -27,7 +27,7 @@ const createLoginService = async (loginData: ILogin): Promise<string> => {
 
     const token: string = jwt.sign(
         {
-            id: user.id
+         
         },
         process.env.SECRET_KEY!,
         {
