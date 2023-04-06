@@ -15,15 +15,17 @@ const userUpdateSchema = userSchema.partial()
 const returnUserSchema = userSchema.extend({
     id: z.number(),
     createdAt: z.date(),
-    updatedAt: z.date(),
-    deletedAt: z.date().nullable()
+    updatedAt: z.date()
 }).omit({password: true})
+
+
 
 const returnMultipleUserSchema = returnUserSchema.array()
 
 export {
     userSchema,
+    userUpdateSchema,
     returnUserSchema,
     returnMultipleUserSchema,
-    userUpdateSchema
+   
 }

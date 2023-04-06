@@ -5,7 +5,7 @@ import { User } from '../entities'
 import { AppError } from '../errors'
 
 const ensureEmailAlreadyRegisteredMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-
+    
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
 
     if("email" in req.body)

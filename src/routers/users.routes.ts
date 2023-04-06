@@ -9,7 +9,7 @@ import { userSchema, userUpdateSchema } from '../schemas/users.schemas'
 
 const userRoutes: Router = Router()
 
-userRoutes.post('', ensureDataIsValidMiddleware(userSchema), ensureEmailAlreadyRegisteredMiddleware ,createUserController)
+userRoutes.post('', ensureDataIsValidMiddleware(userSchema), ensureEmailAlreadyRegisteredMiddleware, createUserController)
 userRoutes.get('',ensureTokenIsValidMiddleware, listUsersController)
 userRoutes.delete('/:id', ensureTokenIsValidMiddleware, ensureUserExistsMiddleware, deleteUserController)
 userRoutes.patch('/:id', ensureTokenIsValidMiddleware, ensureDataIsValidMiddleware(userUpdateSchema), ensureUserExistsMiddleware, ensureEmailAlreadyRegisteredMiddleware, updateUserController)
