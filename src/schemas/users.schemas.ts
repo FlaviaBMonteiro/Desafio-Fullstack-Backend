@@ -19,7 +19,6 @@ const returnUserSchema = userSchema.extend({
 }).omit({password: true})
 
 
-
 const returnMultipleUserSchema = returnUserSchema.array()
 
 export {

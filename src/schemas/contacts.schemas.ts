@@ -10,25 +10,36 @@ const contactSchema = z.object({
     user: returnUserSchema.nullish(),
     })
 
+const contactNoUserUSchema = contactSchema.omit({user: true})
+
+const contactUpdateSchema = contactNoUserUSchema.partial()
+
 const returnContactSchema = contactSchema.extend({
     id: z.number(),
     createdAt: z.date(),
     updatedAt: z.date()
     })
 
+const returnContactNoUserSchema = returnContactSchema.omit({
+    user: true
+})
+
 const manyContactsSchemaWithoutUser = contactSchema.omit({
         user: true
     }).array()
     
 const returnContactsByUserSchema = returnUserSchema.extend({
-        posts: manyContactsSchemaWithoutUser
+        contacts: manyContactsSchemaWithoutUser
     })
 
 
 
 export {
-    contactSchema,     
-
+    contactSchema,
+    contactNoUserUSchema,
+    contactUpdateSchema,
     returnContactSchema,
+    returnContactNoUserSchema,
     returnContactsByUserSchema
+   
 }

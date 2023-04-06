@@ -1,13 +1,15 @@
 import { Request, Response } from 'express'
-import { ICreateContact } from '../interfaces/contacts.interfaces'
+import { IContactReturn, IContactUpdate } from '../interfaces/contacts.interfaces'
 import createContactsService from '../services/contacts/createContacts.service'
 import listContactByUserService from '../services/contacts/listContactByUser.service'
+import deleteContactService from '../services/contacts/deleteContact.service'
+import updateContactService from '../services/contacts/updateContact.service'
 
 
 
 const createContactsController = async (req: Request, res: Response): Promise<Response> => {
     const idUser: number = req.user.id
-    const contactData: ICreateContact = req.body
+    const contactData: IContactReturn = req.body
 
     const newContact = await createContactsService(idUser, contactData)
 
@@ -18,13 +20,31 @@ const createContactsController = async (req: Request, res: Response): Promise<Re
 const listContactByUserController = async (req: Request, res: Response): Promise<Response> => {
     const userId: number = parseInt(req.params.id)
 
-    const posts = await listContactByUserService(userId)
+    const contacts = await listContactByUserService(userId)
 
-    return res.json(posts)
+    return res.json(contacts)
 }
 
+const deleteContactController = async (req: Request, res: Response) => {
+
+    await deleteContactService(parseInt(req.params.id))
+
+    return res.status(204).send()
+}
+
+const updateContactController = async (req: Request, res: Response) => {
+
+    const userData: IContactUpdate= req.body
+    const idUser = parseInt(req.params.id)
+
+    const updatedUser = await updateContactService(userData, idUser)
+
+    return res.json(updatedUser)
+}
 
 export {
     createContactsController,
-    listContactByUserController
+    listContactByUserController,
+    deleteContactController,
+    updateContactController
 }

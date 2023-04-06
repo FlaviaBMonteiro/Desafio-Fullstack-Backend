@@ -7,6 +7,7 @@ import {
     DeleteDateColumn,
     OneToMany
 } from 'typeorm'
+import { Contact } from './contact.entity'
 
 
 @Entity('users')
@@ -38,6 +39,9 @@ class User {
 
     @DeleteDateColumn()
     deletedAt: string
+
+    @OneToMany(() => Contact, (contact) => contact.user)
+    contacts: Contact[]
 
 }
 

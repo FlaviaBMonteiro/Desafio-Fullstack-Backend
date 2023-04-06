@@ -2,7 +2,7 @@ import {
     userSchema,
     returnUserSchema,
     returnMultipleUserSchema,
-    userUpdateSchema
+
 } from '../schemas/users.schemas'
 import { z } from 'zod'
 import { DeepPartial } from 'typeorm'

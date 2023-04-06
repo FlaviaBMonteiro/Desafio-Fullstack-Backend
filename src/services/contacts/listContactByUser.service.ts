@@ -13,7 +13,9 @@ const listContactByUserService= async(userId: number): Promise<IContactByUser> =
         where: {
             id: userId
         },
-        
+        relations: {
+            contacts: true
+        }
     })
 
     const returnPosts = returnContactsByUserSchema.parse(users!)
