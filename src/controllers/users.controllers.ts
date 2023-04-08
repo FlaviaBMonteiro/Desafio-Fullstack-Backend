@@ -1,40 +1,29 @@
-import { Request, Response } from 'express'
-import { IUser, IUserUpdate } from '../interfaces/users.interfaces'
-import createUserService from '../services/users/createUser.service'
-import deleteUserService from '../services/users/deleteUser.service'
-import updateUserService from '../services/users/updateUser.service'
+import { Request, Response } from "express"
+import { IUser, IUserUpdate } from "../interfaces/users.interfaces"
+import createUserService from "../services/users/createUser.service"
+import deleteUserService from "../services/users/deleteUser.service"
+import updateUserService from "../services/users/updateUser.service"
 
 const createUserController = async (req: Request, res: Response) => {
+	const userData: IUser = req.body
+	const newUser = await createUserService(userData)
 
-    const userData: IUser = req.body
-
-    const newUser = await createUserService(userData)
-
-    return res.status(201).json(newUser)
-
+	return res.status(201).json(newUser)
 }
 
-
 const deleteUserController = async (req: Request, res: Response) => {
+	await deleteUserService(parseInt(req.params.id))
 
-    await deleteUserService(parseInt(req.params.id))
-
-    return res.status(204).send()
+	return res.status(204).send()
 }
 
 const updateUserController = async (req: Request, res: Response) => {
+	const userData: IUserUpdate = req.body
+	const idUser = parseInt(req.params.id)
 
-    const userData: IUserUpdate = req.body
-    const idUser = parseInt(req.params.id)
+	const updatedUser = await updateUserService(userData, idUser)
 
-    const updatedUser = await updateUserService(userData, idUser)
-
-    return res.json(updatedUser)
+	return res.json(updatedUser)
 }
- 
 
-export {
-    createUserController,
-    deleteUserController,
-    updateUserController
-}
+export { createUserController, deleteUserController, updateUserController }

@@ -1,50 +1,45 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    DeleteDateColumn,
-    OneToMany
-} from 'typeorm'
-import { Contact } from './contact.entity'
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	CreateDateColumn,
+	UpdateDateColumn,
+	DeleteDateColumn,
+	OneToMany,
+} from "typeorm"
+import { Contact } from "./contact.entity"
 
-
-@Entity('users')
+@Entity("users")
 class User {
+	@PrimaryGeneratedColumn("increment")
+	id: number
 
-    @PrimaryGeneratedColumn('increment')
-    id: number
+	@Column({ length: 45, unique: true })
+	email: string
 
-    @Column({ length: 45, unique: true })
-    email: string
+	@Column({ length: 120 })
+	password: string
 
-    @Column({ length: 120 })
-    password: string
+	@Column({ length: 60 })
+	name: string
 
-    @Column({ length: 60 })
-    name: string
+	@Column({ length: 11 })
+	phone: string
 
-    @Column({ length: 11})
-    phone: string
+	@Column({ type: "varchar", nullable: true })
+	imgURL: string
 
-    @Column( {type: "varchar", nullable:true })
-    imgURL: string
+	@CreateDateColumn()
+	createdAt: string
 
-    @CreateDateColumn()
-    createdAt: string
+	@UpdateDateColumn()
+	updatedAt: string
 
-    @UpdateDateColumn()
-    updatedAt: string
+	@DeleteDateColumn()
+	deletedAt: string
 
-    @DeleteDateColumn()
-    deletedAt: string
-
-    @OneToMany(() => Contact, (contact) => contact.user)
-    contacts: Contact[]
-
+	@OneToMany(() => Contact, (contact) => contact.user)
+	contacts: Contact[]
 }
 
-export {
-    User
-}
+export { User }

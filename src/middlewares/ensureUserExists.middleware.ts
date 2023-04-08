@@ -1,25 +1,27 @@
-import { Request, Response, NextFunction} from 'express'
-import { Repository } from 'typeorm'
-import { AppDataSource } from '../data-source'
-import { User } from '../entities'
-import { AppError } from '../errors'
+import { Request, Response, NextFunction } from "express"
+import { Repository } from "typeorm"
+import { AppDataSource } from "../data-source"
+import { User } from "../entities"
+import { AppError } from "../errors"
 
-const ensureUserExistsMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const ensureUserExistsMiddleware = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	const userRepository: Repository<User> = AppDataSource.getRepository(User)
 
-    const userRepository: Repository<User> = AppDataSource.getRepository(User)
+	const findUser = await userRepository.findOne({
+		where: {
+			id: parseInt(req.params.id),
+		},
+	})
 
-    const findUser = await userRepository.findOne({
-        where: {
-            id: parseInt(req.params.id)
-        }
-    })
+	if (!findUser) {
+		throw new AppError("User not found", 404)
+	}
 
-    if(!findUser){
-        throw new AppError('User not found', 404)
-    }
-
-    return next()
-
+	return next()
 }
 
 export default ensureUserExistsMiddleware

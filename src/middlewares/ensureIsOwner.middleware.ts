@@ -1,21 +1,23 @@
-import { Request, Response, NextFunction} from 'express'
-import { Repository } from 'typeorm'
-import { AppDataSource } from '../data-source'
-import { User } from '../entities'
-import { AppError } from '../errors'
+import { Request, Response, NextFunction } from "express"
+import { Repository } from "typeorm"
+import { AppDataSource } from "../data-source"
+import { User } from "../entities"
+import { AppError } from "../errors"
 
-const ensureIsOwnerMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const ensureIsOwnerMiddleware = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+): Promise<void> => {
+	const userRepository: Repository<User> = AppDataSource.getRepository(User)
+	const loggedUser = req.user.id
+	const requestUser = parseInt(req.params.id)
 
-    const userRepository: Repository<User> = AppDataSource.getRepository(User)
-    const loggedUser = req.user.id
-    const requestUser = parseInt(req.params.id)
+	if (loggedUser !== requestUser) {
+		throw new AppError("Forbidden", 403)
+	}
 
-    if(loggedUser !== requestUser){
-        throw new AppError('Forbidden', 403)
-    }
-
-    return next()
-
+	return next()
 }
 
 export default ensureIsOwnerMiddleware
