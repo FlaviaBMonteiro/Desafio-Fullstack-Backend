@@ -22,6 +22,7 @@ const ensureTokenIsValidMiddleware = (
 
 		req.user = {
 			id: Number(decoded.sub),
+			email: decoded.sub,
 		}
 
 		return next()
