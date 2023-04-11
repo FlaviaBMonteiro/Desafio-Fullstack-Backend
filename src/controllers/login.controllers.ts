@@ -9,6 +9,7 @@ const createLoginController = async (req: Request, res: Response): Promise<Respo
 
 	return res.json({
 		token: token,
+		email: loginData.email,
 	})
 }
 
